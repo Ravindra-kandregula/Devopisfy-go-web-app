@@ -1,92 +1,926 @@
-<DocType html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - Devopisfy Academy</title>
+    <style>
+        :root {
+            --bg-base: #090d16;
+            --bg-surface: #0f172a;
+            --bg-card: rgba(17, 24, 39, 0.75);
+            --bg-card-hover: rgba(30, 41, 59, 0.85);
+            --border-subtle: rgba(148, 163, 184, 0.12);
+            --border-hover: rgba(99, 102, 241, 0.4);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.35);
+            --cyan: #38bdf8;
+            --emerald: #34d399;
+            --amber: #fbbf24;
+            --purple: #c084fc;
+            --gradient-accent: linear-gradient(135deg, #38bdf8 0%, #6366f1 50%, #a855f7 100%);
+            --font-stack: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --container: 1200px;
+        }
 
-<html>
-    <head>
-        <title>Learn DevOps from Basics</title>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(99, 102, 241, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 50% 90%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background-color: rgba(9, 13, 22, 0.85);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 16px var(--primary-glow);
+        }
+
+        .brand-badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--cyan);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 8px;
+        }
+
+        nav ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        nav ul li a.active {
+            color: var(--cyan);
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: #ffffff;
+            box-shadow: 0 4px 14px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+            border: 1px solid var(--border-subtle);
+            width: 100%;
+        }
+
+        .btn-outline:hover {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.4);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* Header Hero */
+        .page-header {
+            padding: 70px 0 40px;
+            text-align: center;
+        }
+
+        .pill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #a5b4fc;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto 36px;
+        }
+
+        /* Search and Filter Controls */
+        .controls-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .search-input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 14px 18px 14px 48px;
+            color: var(--text-main);
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+        }
+
+        .filters-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-btn.active {
+            background: var(--cyan);
+            color: #090d16;
+            border-color: var(--cyan);
+            font-weight: 700;
+        }
+
+        /* Course Grid */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 28px;
+            margin-bottom: 70px;
+        }
+
+        .course-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-hover);
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(99, 102, 241, 0.15);
+            background: var(--bg-card-hover);
+        }
+
+        .card-top {
+            margin-bottom: 24px;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .category-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            background: rgba(99, 102, 241, 0.15);
+            color: #a5b4fc;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .level-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--emerald);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .course-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .course-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.55;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-pill {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px dashed var(--border-subtle);
+            display: none;
+        }
+
+        .empty-state h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .empty-state p {
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-subtle);
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 12px;
+            max-width: 320px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--cyan);
+        }
+
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
             }
+        }
 
-            header {
-                background-color: #333;
-                color: #fff;
-                padding: 10px 0;
-                text-align: center;
+        @media (max-width: 680px) {
+            .navbar ul {
+                display: none;
             }
-
-            nav ul {
-                list-style-type: none;
-                padding: 0;
+            .mobile-toggle {
+                display: block;
             }
-
-            nav ul li {
-                display: inline;
-                margin-right: 10px;
-            }
-
-            nav ul li a {
-                color: #fff;
-                text-decoration: none;
-            }
-
-            main {
-                padding: 20px;
-            }
-
-            section {
-                margin-bottom: 20px;
-            }
-
-            footer {
-                background-color: #333;
-                color: #fff;
-                text-align: center;
-                padding: 10px 0;
-                position: fixed;
-                bottom: 0;
+            .navbar.open ul {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 72px;
+                left: 0;
                 width: 100%;
+                background: var(--bg-surface);
+                padding: 20px;
+                border-bottom: 1px solid var(--border-subtle);
             }
-        </style>
-    </head>
-    <body>
-        <header>
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container navbar" id="navbar">
+            <a href="home" class="brand-logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                </div>
+                <span>Devopisfy</span>
+                <span class="brand-badge">Cloud Academy</span>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Toggle navigation" onclick="document.getElementById('navbar').classList.toggle('open')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
             <nav>
                 <ul>
                     <li><a href="home">Home</a></li>
+                    <li><a href="courses" class="active">Courses</a></li>
                     <li><a href="about">About</a></li>
                     <li><a href="contact">Contact</a></li>
-                    <li><a href="courses">Courses</a></li>
                 </ul>
             </nav>
-        </header>
 
-        <main>
-            <section>
-                <h1>Learn DevOps from Basics</h1>
-                <p>DevOps is a set of practices that combines software development (Dev) and IT operations (Ops)</p>
-                <p>It aims to shorten the systems development life cycle and provide continuous delivery with high software quality. DevOps is complementary with Agile software development; several DevOps aspects came from Agile methodology</p>    
+            <div class="nav-actions">
+                <a href="contact" class="btn btn-primary">
+                    <span>Join Community</span>
+                </a>
+            </div>
+        </div>
+    </header>
 
-                <h2>Main Tutorials</h2>
-                <p><a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvIKMhk8WhzN1pYoJ1YU8Csa">DevOps Zero to Hero</a></p>
-                <p><a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvLNOxX0RfndiYSt1Le9azze">AWS Zero to Hero</a></p>
-                <p><a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvIcxgCUyBHVOcWs0Krjx9xR">Azure Zero to Hero</a></p>
-                <p><a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvI0O4PeKVV1-yJoX2AqIWuf">Terraform Zero to Hero</a></p>
-                <p><a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvKwTyYNJCUwGPvql0TrsPgv">Python Zero to Hero</a></p>
+    <main class="container">
+        <!-- Header -->
+        <div class="page-header">
+            <div class="pill-badge">
+                <span>📚 100% Free Video Masterclasses</span>
+            </div>
+            <h1 class="page-title">Curated <span class="gradient-text">DevOps Tracks</span></h1>
+            <p class="page-subtitle">
+                Comprehensive zero-to-hero video series and GitHub repositories designed to transform you into an industry-ready DevOps and Cloud Engineer.
+            </p>
+        </div>
 
-                <h2>Additional Tutorials</h2>
-                <p><a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvKv4MFW35XRskZbQbrt6ep-">Networking Fundamentals</a></p>
-                <p><a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvLxd5nmtmORCmhD5jkrNbuE">Ansible Zero to Hero</a></p>
-                <p><a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvKu7OZpgj1-MzJFqZ8RBp6f">GitOps Zero to Hero</a></p>
+        <!-- Filter and Search Bar -->
+        <div class="controls-wrapper">
+            <div class="search-box">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="courseSearch" class="search-input" placeholder="Search courses by tool, topic, or keyword (e.g. k8s, terraform, aws, python)..." onkeyup="filterCourses()">
+            </div>
+            <div class="filters-row">
+                <button class="filter-btn active" onclick="setCategory('all', this)">All Tracks</button>
+                <button class="filter-btn" onclick="setCategory('core', this)">Core DevOps</button>
+                <button class="filter-btn" onclick="setCategory('cloud', this)">Cloud Platforms</button>
+                <button class="filter-btn" onclick="setCategory('iac', this)">IaC & Automation</button>
+                <button class="filter-btn" onclick="setCategory('troubleshoot', this)">Troubleshooting</button>
+            </div>
+        </div>
 
-                <h2>Troubleshooting Tutorials</h2>
-                <p><a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvIrFBI1farpLS_OSUBXJMLX">Troubleshooting Kubernetes</a></p>
-            </section>
-        </main>
+        <!-- Course Cards Grid -->
+        <div class="courses-grid" id="courseGrid">
+            
+            <!-- 1. DevOps Zero to Hero -->
+            <div class="course-card" data-category="core" data-keywords="devops zero to hero linux git docker jenkins kubernetes cicd">
+                <div class="card-top">
+                    <div class="card-meta">
+                        <span class="category-badge">Flagship Course</span>
+                        <span class="level-badge">Beginner → Hero</span>
+                    </div>
+                    <h2 class="course-title">DevOps Zero to Hero</h2>
+                    <p class="course-desc">The ultimate comprehensive roadmap covering Linux, Git, Docker, Jenkins CI/CD, Kubernetes, and enterprise deployment workflows.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">Linux</span>
+                        <span class="tech-pill">Docker</span>
+                        <span class="tech-pill">CI/CD</span>
+                        <span class="tech-pill">Kubernetes</span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvIKMhk8WhzN1pYoJ1YU8Csa" target="_blank" rel="noopener" class="btn btn-outline">
+                    <span>Watch Playlist (Free)</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            </div>
 
-        <footer>
-            <p>&copy; Abhishek.Veeramalla</p>
-        </footer>
-    </body>
+            <!-- 2. AWS Zero to Hero -->
+            <div class="course-card" data-category="cloud" data-keywords="aws amazon cloud zero to hero ec2 vpc s3 eks iam lambda">
+                <div class="card-top">
+                    <div class="card-meta">
+                        <span class="category-badge">Cloud Architecture</span>
+                        <span class="level-badge">All Levels</span>
+                    </div>
+                    <h2 class="course-title">AWS Zero to Hero</h2>
+                    <p class="course-desc">Master Amazon Web Services for DevOps: VPC networking, EC2, IAM policies, S3 storage, EKS managed clusters, and automated provisioning.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">AWS</span>
+                        <span class="tech-pill">VPC</span>
+                        <span class="tech-pill">EKS</span>
+                        <span class="tech-pill">IAM</span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvLNOxX0RfndiYSt1Le9azze" target="_blank" rel="noopener" class="btn btn-outline">
+                    <span>Watch Playlist (Free)</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- 3. Azure Zero to Hero -->
+            <div class="course-card" data-category="cloud" data-keywords="azure microsoft cloud zero to hero aks vnet azure devops compute">
+                <div class="card-top">
+                    <div class="card-meta">
+                        <span class="category-badge">Cloud Architecture</span>
+                        <span class="level-badge">All Levels</span>
+                    </div>
+                    <h2 class="course-title">Azure Zero to Hero</h2>
+                    <p class="course-desc">End-to-end cloud infrastructure on Microsoft Azure. Dive into Azure Virtual Networks, Virtual Machines, AKS, and Azure DevOps CI/CD pipelines.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">Azure</span>
+                        <span class="tech-pill">AKS</span>
+                        <span class="tech-pill">VNet</span>
+                        <span class="tech-pill">Azure DevOps</span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvIcxgCUyBHVOcWs0Krjx9xR" target="_blank" rel="noopener" class="btn btn-outline">
+                    <span>Watch Playlist (Free)</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- 4. Terraform Zero to Hero -->
+            <div class="course-card" data-category="iac" data-keywords="terraform iac infrastructure as code hcl modules state multi-cloud">
+                <div class="card-top">
+                    <div class="card-meta">
+                        <span class="category-badge">Infrastructure as Code</span>
+                        <span class="level-badge">Intermediate</span>
+                    </div>
+                    <h2 class="course-title">Terraform Zero to Hero</h2>
+                    <p class="course-desc">Learn declarative infrastructure provisioning. Master HCL syntax, provider configurations, remote state locking, modular architecture, and CI integration.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">Terraform</span>
+                        <span class="tech-pill">HCL</span>
+                        <span class="tech-pill">State Lock</span>
+                        <span class="tech-pill">Modules</span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvI0O4PeKVV1-yJoX2AqIWuf" target="_blank" rel="noopener" class="btn btn-outline">
+                    <span>Watch Playlist (Free)</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- 5. GitOps Zero to Hero -->
+            <div class="course-card" data-category="core" data-keywords="gitops argo cd argocd rollouts kubernetes continuous delivery canary">
+                <div class="card-top">
+                    <div class="card-meta">
+                        <span class="category-badge">GitOps & Delivery</span>
+                        <span class="level-badge">Advanced</span>
+                    </div>
+                    <h2 class="course-title">GitOps Zero to Hero</h2>
+                    <p class="course-desc">Embrace modern declarative continuous delivery using ArgoCD, Argo Rollouts, and Git-driven single source of truth for Kubernetes workloads.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">ArgoCD</span>
+                        <span class="tech-pill">Rollouts</span>
+                        <span class="tech-pill">GitOps</span>
+                        <span class="tech-pill">Canary</span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvKu7OZpgj1-MzJFqZ8RBp6f" target="_blank" rel="noopener" class="btn btn-outline">
+                    <span>Watch Playlist (Free)</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- 6. Troubleshooting Kubernetes -->
+            <div class="course-card" data-category="troubleshoot" data-keywords="troubleshooting kubernetes k8s crashloopbackoff oomkilled sre debugging">
+                <div class="card-top">
+                    <div class="card-meta">
+                        <span class="category-badge">SRE Masterclass</span>
+                        <span class="level-badge">Advanced</span>
+                    </div>
+                    <h2 class="course-title">Troubleshooting Kubernetes</h2>
+                    <p class="course-desc">Real-world production debugging. Step-by-step resolution of CrashLoopBackOff, OOMKilled, Ingress routing failures, and network policy lockouts.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">CrashLoop</span>
+                        <span class="tech-pill">OOMKilled</span>
+                        <span class="tech-pill">Ingress</span>
+                        <span class="tech-pill">Debugging</span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvIrFBI1farpLS_OSUBXJMLX" target="_blank" rel="noopener" class="btn btn-outline">
+                    <span>Watch Playlist (Free)</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- 7. Python Zero to Hero -->
+            <div class="course-card" data-category="iac" data-keywords="python scripting automation boto3 aws sdk cli devops">
+                <div class="card-top">
+                    <div class="card-meta">
+                        <span class="category-badge">Automation Scripting</span>
+                        <span class="level-badge">Beginner Friendly</span>
+                    </div>
+                    <h2 class="course-title">Python Zero to Hero</h2>
+                    <p class="course-desc">Python specifically crafted for DevOps engineers. Write cloud scripts, interact with AWS using Boto3, parse JSON/YAML configs, and create custom tools.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">Python</span>
+                        <span class="tech-pill">Boto3</span>
+                        <span class="tech-pill">Automation</span>
+                        <span class="tech-pill">APIs</span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvKwTyYNJCUwGPvql0TrsPgv" target="_blank" rel="noopener" class="btn btn-outline">
+                    <span>Watch Playlist (Free)</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- 8. Ansible Zero to Hero -->
+            <div class="course-card" data-category="iac" data-keywords="ansible zero to hero configuration management playbooks roles automation">
+                <div class="card-top">
+                    <div class="card-meta">
+                        <span class="category-badge">Config Management</span>
+                        <span class="level-badge">Intermediate</span>
+                    </div>
+                    <h2 class="course-title">Ansible Zero to Hero</h2>
+                    <p class="course-desc">Automate server configurations and deployments at scale. Write declarative YAML playbooks, manage dynamic inventories, and build reusable roles.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">Ansible</span>
+                        <span class="tech-pill">Playbooks</span>
+                        <span class="tech-pill">Roles</span>
+                        <span class="tech-pill">YAML</span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvLxd5nmtmORCmhD5jkrNbuE" target="_blank" rel="noopener" class="btn btn-outline">
+                    <span>Watch Playlist (Free)</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- 9. Networking Fundamentals -->
+            <div class="course-card" data-category="core" data-keywords="networking fundamentals dns cidr tcp ip subnet gateways proxies load balancing">
+                <div class="card-top">
+                    <div class="card-meta">
+                        <span class="category-badge">Core Systems</span>
+                        <span class="level-badge">Foundational</span>
+                    </div>
+                    <h2 class="course-title">Networking Fundamentals</h2>
+                    <p class="course-desc">The bedrock of cloud systems: understand CIDR blocks, TCP/IP, DNS propagation, subnets, routing tables, reverse proxies, and firewalls.</p>
+                    <div class="tech-tags">
+                        <span class="tech-pill">DNS</span>
+                        <span class="tech-pill">CIDR</span>
+                        <span class="tech-pill">TCP/IP</span>
+                        <span class="tech-pill">Reverse Proxy</span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvKv4MFW35XRskZbQbrt6ep-" target="_blank" rel="noopener" class="btn btn-outline">
+                    <span>Watch Playlist (Free)</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Empty Search State -->
+            <div class="empty-state" id="emptyState">
+                <h3>No courses found matching your query</h3>
+                <p>Try searching for different keywords like "k8s", "aws", "terraform", or reset the filter.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="home" class="brand-logo">
+                        <div class="logo-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                        </div>
+                        <span>Devopisfy</span>
+                    </a>
+                    <p>Free, accessible, production-grade cloud and DevOps training designed to empower engineers worldwide.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="home">Home</a></li>
+                        <li><a href="courses">All Courses</a></li>
+                        <li><a href="about">About the Author</a></li>
+                        <li><a href="contact">Contact & Community</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Top Tracks</h4>
+                    <ul>
+                        <li><a href="courses">DevOps Zero to Hero</a></li>
+                        <li><a href="courses">AWS Cloud Track</a></li>
+                        <li><a href="courses">GitOps & ArgoCD</a></li>
+                        <li><a href="courses">K8s Troubleshooting</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvIKMhk8WhzN1pYoJ1YU8Csa" target="_blank" rel="noopener">YouTube Playlists</a></li>
+                        <li><a href="https://www.youtube.com/abhishekVeeramalla/join" target="_blank" rel="noopener">Slack Community</a></li>
+                        <li><a href="contact">Join Office Hours</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Devopisfy • Curated by Abhishek Veeramalla • Open Source & Free for Everyone</p>
+                <p>Built with Golang & Modern CSS</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Filter & Search Script -->
+    <script>
+        let currentCategory = 'all';
+
+        function setCategory(cat, element) {
+            currentCategory = cat;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            filterCourses();
+        }
+
+        function filterCourses() {
+            const query = document.getElementById('courseSearch').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.course-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const keywords = card.getAttribute('data-keywords').toLowerCase();
+                const title = card.querySelector('.course-title').innerText.toLowerCase();
+                const desc = card.querySelector('.course-desc').innerText.toLowerCase();
+
+                const matchesCat = (currentCategory === 'all' || category === currentCategory);
+                const matchesQuery = (!query || keywords.includes(query) || title.includes(query) || desc.includes(query));
+
+                if (matchesCat && matchesQuery) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            const emptyState = document.getElementById('emptyState');
+            if (visibleCount === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+        }
+    </script>
+</body>
 </html>

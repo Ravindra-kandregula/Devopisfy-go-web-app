@@ -4,88 +4,781 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Devopisfy - Master Cloud & DevOps Engineering</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --bg-base: #090d16;
+            --bg-surface: #0f172a;
+            --bg-card: rgba(17, 24, 39, 0.75);
+            --bg-card-hover: rgba(30, 41, 59, 0.85);
+            --border-subtle: rgba(148, 163, 184, 0.12);
+            --border-hover: rgba(99, 102, 241, 0.4);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.35);
+            --cyan: #38bdf8;
+            --emerald: #34d399;
+            --gradient-accent: linear-gradient(135deg, #38bdf8 0%, #6366f1 50%, #a855f7 100%);
+            --font-stack: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --container: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 25%, rgba(99, 102, 241, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 50% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
         header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background-color: rgba(9, 13, 22, 0.85);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 16px var(--primary-glow);
+        }
+
+        .brand-badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--cyan);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
         }
 
         nav ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 8px;
         }
 
         nav ul li a {
-            color: #fff;
+            color: var(--text-muted);
             text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
         }
 
-        main {
-            padding: 20px;
+        nav ul li a:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
         }
 
+        nav ul li a.active {
+            color: var(--cyan);
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: #ffffff;
+            box-shadow: 0 4px 14px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-main);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 90px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .pill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #a5b4fc;
+            margin-bottom: 24px;
+        }
+
+        .pill-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--emerald);
+            box-shadow: 0 0 10px var(--emerald);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero p.lead {
+            font-size: clamp(1.05rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            max-width: 680px;
+            margin: 0 auto 36px;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        /* Stats Bar */
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(12px);
+            margin: 30px auto 60px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        /* Section Commons */
         section {
+            padding: 60px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 48px;
+        }
+
+        .section-subtitle {
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--cyan);
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* Pillars Grid */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-hover);
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.15);
+            background: var(--bg-card-hover);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: rgba(99, 102, 241, 0.12);
+            color: var(--cyan);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
             margin-bottom: 20px;
         }
 
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
-    </style>    
+
+        .tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            border: 1px solid var(--border-subtle);
+        }
+
+        /* Banner CTA */
+        .cta-banner {
+            margin: 40px 0 80px;
+            padding: 60px 40px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        .cta-banner h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .cta-banner p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-subtle);
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 12px;
+            max-width: 320px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            letter-spacing: 0.03em;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--cyan);
+        }
+
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .stats-strip {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .stats-strip {
+                grid-template-columns: 1fr;
+            }
+            .navbar ul {
+                display: none;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .navbar.open ul {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                width: 100%;
+                background: var(--bg-surface);
+                padding: 20px;
+                border-bottom: 1px solid var(--border-subtle);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="home">Home</a></li>
-                <li><a href="about">About</a></li>
-                <li><a href="contact">Contact</a></li>
-                <li><a href="courses">Courses</a></li>
-            </ul>
-        </nav>
+        <div class="container navbar" id="navbar">
+            <a href="home" class="brand-logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                </div>
+                <span>Devopisfy</span>
+                <span class="brand-badge">Cloud Academy</span>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Toggle navigation" onclick="document.getElementById('navbar').classList.toggle('open')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <nav>
+                <ul>
+                    <li><a href="home" class="active">Home</a></li>
+                    <li><a href="courses">Courses</a></li>
+                    <li><a href="about">About</a></li>
+                    <li><a href="contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="courses" class="btn btn-primary">
+                    <span>Explore Tracks</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
     </header>
 
     <main>
-        <section>
-            <h1>Learn DevOps from Basics</h1>
-            <p>The main purpose of this website is to guide people on how to learn DevOps 
-                from basics for Free. We will provide you with the best resources to learn.
-            </p>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="pill-badge">
+                    <span class="dot"></span>
+                    <span>100% Free DevOps & Cloud Engineering Curriculum</span>
+                </div>
+                <h1>Master Cloud & DevOps from <span class="gradient-text">Zero to Production</span></h1>
+                <p class="lead">
+                    Comprehensive, hands-on masterclasses covering Kubernetes, Docker, AWS, Azure, Terraform, CI/CD, and GitOps. Built for software engineers who want production-grade practical skills.
+                </p>
+                <div class="hero-cta">
+                    <a href="courses" class="btn btn-primary" style="padding: 14px 28px; font-size: 1.05rem;">
+                        <span>Browse Free Courses</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                    <a href="about" class="btn btn-secondary" style="padding: 14px 28px; font-size: 1.05rem;">
+                        <span>Meet the Author</span>
+                    </a>
+                </div>
+
+                <!-- Stats Strip -->
+                <div class="stats-strip">
+                    <div class="stat-item">
+                        <div class="stat-number">100K+</div>
+                        <div class="stat-label">Engineers Trained</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Zero-to-Hero Tracks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Free & Open Source</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4.9 ★</div>
+                        <div class="stat-label">Community Rating</div>
+                    </div>
+                </div>
+            </div>
         </section>
 
+        <!-- Core DevOps Pillars Section -->
         <section>
-            <h2>Overview</h2>
-            <p> Zero to Hero courses on all DevOps tools and popular Cloud(AWS and Azure) platform</p>
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-subtitle">What You Will Master</div>
+                    <h2 class="section-title">The Modern DevOps Roadmap</h2>
+                    <p class="section-desc">From Linux fundamentals to declarative GitOps architectures on public clouds.</p>
+                </div>
+
+                <div class="pillars-grid">
+                    <div class="card">
+                        <div class="card-icon">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+                            </svg>
+                        </div>
+                        <h3>Cloud Platforms (AWS & Azure)</h3>
+                        <p>Architect robust infrastructure on AWS and Azure using VPC, EC2, IAM, S3, EKS, AKS, and serverless compute with real architectures.</p>
+                        <div class="tags-list">
+                            <span class="tag">AWS</span>
+                            <span class="tag">Azure</span>
+                            <span class="tag">EKS</span>
+                            <span class="tag">IAM</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                            </svg>
+                        </div>
+                        <h3>Containers & Kubernetes</h3>
+                        <p>Containerize applications with multi-stage Docker builds, orchestrate high-availability clusters with K8s, Helm charts, and Ingress controllers.</p>
+                        <div class="tags-list">
+                            <span class="tag">Docker</span>
+                            <span class="tag">Kubernetes</span>
+                            <span class="tag">Helm</span>
+                            <span class="tag">Distroless</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Infrastructure as Code</h3>
+                        <p>Automate reproducible environments using Terraform modules, state management, remote backends, and Ansible configuration playbooks.</p>
+                        <div class="tags-list">
+                            <span class="tag">Terraform</span>
+                            <span class="tag">Ansible</span>
+                            <span class="tag">HCL</span>
+                            <span class="tag">Automation</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                        </div>
+                        <h3>CI/CD & Declarative GitOps</h3>
+                        <p>Construct automated pipelines with GitHub Actions and embrace progressive canary delivery with ArgoCD and Argo Rollouts.</p>
+                        <div class="tags-list">
+                            <span class="tag">GitHub Actions</span>
+                            <span class="tag">ArgoCD</span>
+                            <span class="tag">GitOps</span>
+                            <span class="tag">Canary</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </div>
+                        <h3>Kubernetes Troubleshooting</h3>
+                        <p>Master diagnosing crash looping containers, memory pressure, RBAC issues, network policies, and silent service outages like a senior SRE.</p>
+                        <div class="tags-list">
+                            <span class="tag">CrashLoopBackOff</span>
+                            <span class="tag">Debugging</span>
+                            <span class="tag">SRE</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Python & System Scripting</h3>
+                        <p>Write robust scripts for cloud automation, custom CLI utilities, AWS Boto3 SDK tasks, and API integration tools.</p>
+                        <div class="tags-list">
+                            <span class="tag">Python</span>
+                            <span class="tag">Boto3</span>
+                            <span class="tag">Linux</span>
+                            <span class="tag">REST API</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
+        <!-- CTA Banner -->
         <section>
-            <h2>Courses Offered</h2>
-            <p>Please look at the <a href="courses">courses</a> section.</p>  
+            <div class="container">
+                <div class="cta-banner">
+                    <h2>Ready to Level Up Your DevOps Skills?</h2>
+                    <p>Start learning from our completely free, production-tested courses today. No paywalls, no subscriptions—pure engineering knowledge.</p>
+                    <a href="courses" class="btn btn-primary" style="padding: 14px 32px; font-size: 1.05rem;">
+                        View All Available Courses
+                    </a>
+                </div>
+            </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; Abhishek.Veeramalla</p>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="home" class="brand-logo">
+                        <div class="logo-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                        </div>
+                        <span>Devopisfy</span>
+                    </a>
+                    <p>Free, accessible, production-grade cloud and DevOps training designed to empower engineers worldwide.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="home">Home</a></li>
+                        <li><a href="courses">All Courses</a></li>
+                        <li><a href="about">About the Author</a></li>
+                        <li><a href="contact">Contact & Community</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Top Tracks</h4>
+                    <ul>
+                        <li><a href="courses">DevOps Zero to Hero</a></li>
+                        <li><a href="courses">AWS Cloud Track</a></li>
+                        <li><a href="courses">GitOps & ArgoCD</a></li>
+                        <li><a href="courses">K8s Troubleshooting</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://www.youtube.com/playlist?list=PLdpzxOOAlwvIKMhk8WhzN1pYoJ1YU8Csa" target="_blank" rel="noopener">YouTube Playlists</a></li>
+                        <li><a href="https://www.youtube.com/abhishekVeeramalla/join" target="_blank" rel="noopener">Slack Community</a></li>
+                        <li><a href="contact">Join Office Hours</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Devopisfy • Curated by Abhishek Veeramalla • Open Source & Free for Everyone</p>
+                <p>Built with Golang & Modern CSS</p>
+            </div>
+        </div>
     </footer>
 </body>
 </html>

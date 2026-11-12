@@ -9,25 +9,29 @@ import (
 )
 
 func TestMain(t *testing.T) {
-	req, err := http.NewRequest("GET", "/home", nil)
-	if err != nil {
-		t.Fatal(err)
-	}
+	testPaths := []string{"/home", "/"}
 
-	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(homePage)
+	for _, path := range testPaths {
+		req, err := http.NewRequest("GET", path, nil)
+		if err != nil {
+			t.Fatal(err)
+		}
 
-	handler.ServeHTTP(rr, req)
+		rr := httptest.NewRecorder()
+		handler := http.HandlerFunc(homePage)
 
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
-	}
+		handler.ServeHTTP(rr, req)
 
-	// Just verify the code not html content
-	expected := "text/html; charset=utf-8"
-	if contentType := rr.Header().Get("Content-Type"); contentType != expected {
-		t.Errorf("handler returned unexpected content type: got %v want %v",
-			contentType, expected)
+		if status := rr.Code; status != http.StatusOK {
+			t.Errorf("path %s returned wrong status code: got %v want %v",
+				path, status, http.StatusOK)
+		}
+
+		// Verify content type
+		expected := "text/html; charset=utf-8"
+		if contentType := rr.Header().Get("Content-Type"); contentType != expected {
+			t.Errorf("path %s returned unexpected content type: got %v want %v",
+				path, contentType, expected)
+		}
 	}
 }

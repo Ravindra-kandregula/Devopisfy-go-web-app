@@ -6,6 +6,10 @@ import (
 )
 
 func homePage(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" && r.URL.Path != "/home" {
+		http.NotFound(w, r)
+		return
+	}
 	// Render the home html page from static folder
 	http.ServeFile(w, r, "static/home.html")
 }
@@ -27,6 +31,7 @@ func contactPage(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
+	http.HandleFunc("/", homePage)
 	http.HandleFunc("/home", homePage)
 	http.HandleFunc("/courses", coursePage)
 	http.HandleFunc("/about", aboutPage)
